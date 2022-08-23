@@ -163,7 +163,10 @@ main {
   background: var(--clr-primary-5);
   color: var(--clr-primary-1);
 }
-.select, .select:hover {
+.selected {
+  background-color: yellow;
+}
+.right, .right:hover {
   background: green;
   color: #fff;
 }
