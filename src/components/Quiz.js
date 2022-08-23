@@ -1,9 +1,9 @@
-import React from "react";
+import { PureComponent } from "react";
 
-import Question from "./Question";
+import Question from './Question';
 import questions from '../questions'
 
-class Quiz extends React.PureComponent {
+class Quiz extends PureComponent {
     render() {
         return (
             <div className="quiz">

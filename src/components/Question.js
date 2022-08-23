@@ -25,17 +25,19 @@ class Question extends React.Component {
 
     shuffle = arr => [...arr].sort(() => Math.random() - 0.5)
 
-    showResult = (i) => {
+    showResult = i => {
         const {selected, correct, score} = this.state
 
-        if (selected === i && selected !== correct) return "wrong";
-        else if (i === correct) return "select";
-
+        if (selected === i && selected !== correct) {
+            return "wrong";
+        } else if (i === correct) {
+            return "select";
+        }
     };
 
-    checkAnswer = (i) => {
-        const {questions} = this.props
-        const {currentQuestion, correct, selected, score} = this.state
+    checkAnswer = i => {
+        const {questions} = this.props;
+        const {currentQuestion} = this.state;
 
         this.setState({
             selected: i, 
@@ -46,10 +48,12 @@ class Question extends React.Component {
 
     nextQuestion = () => {
         const {questions} = this.props
-        const {selected, currentQuestion, score, correct} = this.state
+        const {selected, currentQuestion, score, correct} = this.state;
+
         if (selected === correct) {
           this.setState({score: score + 1})
         };
+
         if(selected) {
             if(currentQuestion + 1 !== questions.length ) {
                 this.setState({
@@ -60,7 +64,9 @@ class Question extends React.Component {
             } else {
               this.setState({isFinished: true})
             }
-        }else this.setState({error: "Please select an option"})
+        } else {
+            this.setState({error: "Please select an option"})
+        }
     };
 
     previousQuestion = () => {

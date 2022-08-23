@@ -63,12 +63,14 @@ a {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   letter-spacing: var(--spacing);
   text-transform: capitalize;
   line-height: 1.25;
   margin-bottom: 0.75rem;
 }
+
 h1 {
   font-size: 3rem;
 }
@@ -80,6 +82,9 @@ h3 {
 }
 h4 {
   font-size: 0.875rem;
+}
+h5 {
+  color: red;
 }
 p {
   margin-bottom: 1.25rem;
@@ -153,17 +158,19 @@ main {
   cursor: pointer;
   font-size: 18px;
 }
-.select {
-  background: green;
-}
-.wrong {
-  background: red;
-}
+
 .random-btn:hover {
   background: var(--clr-primary-5);
   color: var(--clr-primary-1);
 }
-
+.select, .select:hover {
+  background: green;
+  color: #fff;
+}
+.wrong, .wrong:hover {
+  background: red;
+  color: #222;
+}
 .reset {
   background: var(--clr-primary-10);
   color: var(--clr-primary-5);
