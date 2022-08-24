@@ -29,6 +29,6 @@ const questions = [
         allAnswers: ["key", "data", "id", "index"]
 
     }
-]
+];
 
-export default questions
+export default questions;

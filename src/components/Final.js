@@ -8,4 +8,4 @@ class Final extends PureComponent {
     }
 }
 
-export default Final
+export default Final;
