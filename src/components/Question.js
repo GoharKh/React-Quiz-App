@@ -61,18 +61,19 @@ class Question extends PureComponent {
           this.setState({isFinished: true})
       };
     } else {
-        this.setState({error: 'Please select an option'})
+        this.setState({error: 'Please select an option for next question'})
     };
   };
 
   previousQuestion = () => {
-    const {selected, currentQuestion, checkedAnswers}  = this.state;
+    const {selected, currentQuestion}  = this.state;
 
     if(currentQuestion !== 0) {
         this.showResult(selected);
         this.setState({
             currentQuestion: currentQuestion - 1,
-            selected: checkedAnswers[currentQuestion]
+            selected: true,
+            error: ''
         });
     };
   };
