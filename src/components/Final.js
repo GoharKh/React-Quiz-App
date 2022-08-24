@@ -1,7 +1,8 @@
-import React from "react";
-class Final extends React.PureComponent {
+import { PureComponent } from 'react';
+
+class Final extends PureComponent {
     render() {
-        return <div>
+        return <div className="results">
             <h1>Your Score is {this.props.score} / {this.props.questions}</h1>
         </div>
     }
