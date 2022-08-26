@@ -1,10 +1,11 @@
 import { PureComponent } from 'react';
 
-import img from './images/brain.png';
-import Quiz from './components/Quiz';
+import UserLog from './components/UserLog';
 
+import img from './images/brain.png';
 
 class App extends PureComponent {
+
   render() {
     return (
       <div className="container">
@@ -13,7 +14,7 @@ class App extends PureComponent {
           <h1>Let's Play</h1>
           <div className="underline"></div>
         </div>
-        <Quiz />
+        <UserLog />
       </div>
     );
   };

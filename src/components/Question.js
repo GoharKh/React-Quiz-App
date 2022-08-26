@@ -1,12 +1,13 @@
 import { PureComponent } from 'react';
 
 import Final from './Final';
+
 import nextBtn from '../images/right.png' 
 import prevBtn from '../images/left.png'
 
 class Question extends PureComponent {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       selected: null,
       error: false,
@@ -28,7 +29,7 @@ class Question extends PureComponent {
     }
   };
 
-  checkAnswer = i => {
+  setAnswer = i => {
     const {questions} = this.props;
     const {currentQuestion, checkedAnswers} = this.state;
 
@@ -42,40 +43,42 @@ class Question extends PureComponent {
 
   nextQuestion = () => {
     const {questions} = this.props;
-    const {selected, currentQuestion, score, correct, checkedAnswers} = this.state;
+    const {selected, currentQuestion, correct, checkedAnswers} = this.state;
 
     if (selected === correct) {
-      this.setState({score: score + 1})
+      this.setState(({score}) => ({score: score + 1}))
     };
+    
+    // if the user already selected an answer, the selected answer will remain the same even when goes back and forward
     if(checkedAnswers[currentQuestion + 1]) {
       this.setState({
         currentQuestion: currentQuestion + 1, 
         selected: checkedAnswers[currentQuestion]
-      })} else if(selected ||  checkedAnswers[currentQuestion] ) {
+      })
+    } else if(selected ||  checkedAnswers[currentQuestion] ) {
       if(currentQuestion + 1 !== questions.length ) {
-          this.setState({
-              currentQuestion: currentQuestion + 1, 
-              selected: null
-          });
+        this.setState({
+          currentQuestion: currentQuestion + 1, 
+          selected: null
+        });
       } else {
           this.setState({isFinished: true})
-      };
+      }
     } else {
-        this.setState({error: 'Please select an option for next question'})
+      // 
+      this.setState({error: 'Please select an option for next question'})
     };
   };
 
   previousQuestion = () => {
     const {selected, currentQuestion}  = this.state;
 
-    if(currentQuestion !== 0) {
-        this.showResult(selected);
-        this.setState({
-            currentQuestion: currentQuestion - 1,
-            selected: true,
-            error: ''
-        });
-    };
+      this.showResult(selected);
+      this.setState({
+          currentQuestion: currentQuestion - 1,
+          selected: true,
+          error: ''
+      });
   };
 
   render() {
@@ -83,36 +86,45 @@ class Question extends PureComponent {
     const {score, currentQuestion, selected, error, isFinished, checkedAnswers} = this.state;
     
     if(isFinished) {
-        return <Final score={score} questions={questions.length}/>
+        return <Final score={score} {...this.props}/>
     };
 
     return (
       <>
-        <h3>Question {currentQuestion + 1}  </h3>
+        <h3>Question {currentQuestion + 1}</h3>
         <h2>{questions[currentQuestion].question}</h2>
         <div className="answers">
           {error && <p>{error}</p>}
           {questions[currentQuestion].allAnswers.map((i, index) => (
             checkedAnswers.includes(i) 
-            ? <button className={`option selected ${selected && this.showResult(i)}`} 
-                    key={index}
-                    disabled={selected}> 
-              {i} 
-            </button> : 
-            <button className={`option ${selected && this.showResult(i)}`}
-                    key={index}
-                    onClick={() => this.checkAnswer(i)}
-                    disabled={selected}> 
-              {i} 
-            </button> ))
+            ? <button
+                className={`option selected ${selected && this.showResult(i)}`} 
+                key={index}
+                disabled={selected}
+              > 
+                {i} 
+              </button> 
+            : <button 
+                className={`option ${selected && this.showResult(i)}`}
+                key={index}
+                onClick={() => this.setAnswer(i)}
+                disabled={selected}
+              > 
+                {i} 
+              </button> ))
           }
         </div>
-        <button onClick={this.previousQuestion}
-                className="btn"> 
+        <button 
+          onClick={this.previousQuestion}
+          className="btn"
+          disabled={!currentQuestion}
+        > 
           <img src={prevBtn} width='40px'/>
         </button>
-        <button onClick={this.nextQuestion}
-                className="btn">
+        <button 
+          onClick={this.nextQuestion}
+          className="btn"
+        >
           <img src={nextBtn} width='40px'/>
         </button>
       </>

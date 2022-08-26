@@ -1,32 +1,32 @@
 const questions = [
     {
-        question: "Which of the following method is true about referring parent class in React.js ?",
-        correctAnswer: "super()",
-        allAnswers: ["self()", "inherits()", "super()", "this()"]
+        question: "In React.js which one of the following is used to create a class for Inheritance ?",
+        correctAnswer: "extends",
+        allAnswers: ["extends", "create", "delete", "inherits"]
 
     },
     {
-        question: "Everything in React is a _____________",
-        correctAnswer: "Component",
-        allAnswers: ["module", "component", "class", "package"]
+        question: "Which of the following is a way to handle data in React.js ?",
+        correctAnswer: "State & Props",
+        allAnswers: ["Services & Components", "State & Services", "State & Props", "State & Components"]
 
     },
     {
-        question: "How many elements does a react component return?",
-        correctAnswer: "multiple elements",
-        allAnswers: ["multiple elements", "2 Elements", "none of the above", "1 Element"]
+        question: "Which of the following is true regarding Babel ?",
+        correctAnswer: "Both of the above",
+        allAnswers: ["Compiler", "Transpilar", "Both of the above", "None of the above"]
 
     },
     {
-        question: "How can you access the state of a component from inside of a member function?",
-        correctAnswer: "this.values",
-        allAnswers: ["this.getState()", "this.values", "this.state", "this.prototype.stateValue"]
+        question: "In React.js, how we can pass the data from one component to another in React.js ?",
+        correctAnswer: "Props",
+        allAnswers: ["SetState", "Render with arguments", "Props", "PropTypes"]
 
     },
     {
-        question: "Which of the following API is a MUST for every ReactJS component?",
-        correctAnswer: "renderComponent",
-        allAnswers: ["getInitialState", "render", "renderComponent", "none of the above"]
+        question: "Which of the following function is true about changing the state in React.js ?",
+        correctAnswer: "this.setState",
+        allAnswers: ["this.State{}", "this.setState", "this.setChangeState", "All of the above"]
 
     }
 ];
