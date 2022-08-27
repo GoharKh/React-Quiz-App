@@ -1,4 +1,4 @@
-import { PureComponent, createRef } from "react";
+import { PureComponent, createRef } from 'react';
 
 import Quiz from './Quiz'
 
@@ -17,36 +17,39 @@ class UserLog extends PureComponent {
   }
   onKeyUp = (target, e) => {
     if(e.keyCode === 13) {
-      if(target == "firstName") {
+      if(target === 'firstName') {
         if(this.firstName.current.value.length > 2) {
           this.setState({error: ''})
           this.lastName.current.focus();
         } else {
-            this.setState({error: 'Please fill the fields'})
+            this.setState({error: 'Please fill the fields properly'})
           }
       } 
-      else if(target == 'lastName') {
+      else if(target === 'lastName') {
         this.setState({error: ''})
         if(this.lastName.current.value.length > 3) {
           this.handleSubmit()
         } else {
-          this.setState({error: 'Please fill the fields'})
+          this.setState({error: 'Please fill the fields properly'})
         }
 
       }
     }
   }
   handleSubmit = () => {
+
     if(this.firstName.current.value.length && this.lastName.current.value.length ) {
       this.setState({isLogged: true})
     } else {
-      this.setState({error: 'Please fill the fields'})
+      this.setState({error: 'Please fill the fields properly'})
     }
   }
   render() {
     const {error} = this.state
     if(this.state.isLogged) {
-      return <Quiz  firstName={this.firstName.current.value} lastName={this.lastName.current.value}/>
+      return (
+        <Quiz  firstName={this.firstName.current.value} lastName={this.lastName.current.value}/>
+      )
     }
     return(
       <>
@@ -54,13 +57,13 @@ class UserLog extends PureComponent {
         {error && <p>{error}</p>}
         <input 
           type='text' 
-          placeholder="Type your name..."
+          placeholder='Type your name...'
           ref={this.firstName}
           onKeyUp={this.onKeyUp.bind(this, 'firstName')}
         /> 
         <input 
           type='text' 
-          placeholder="Type your surname..."
+          placeholder='Type your surname...'
           ref={this.lastName}
           onKeyUp={this.onKeyUp.bind(this, 'lastName')}
         />

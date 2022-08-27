@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+import PropTypes from 'prop-types'
 
 import Final from './Final';
 
@@ -88,7 +89,9 @@ class Question extends PureComponent {
     if(isFinished) {
         return <Final score={score} {...this.props}/>
     };
-
+    if(!questions) {
+      throw new Error('There are no questions right now! Please try again later.')
+    }
     return (
       <>
         <h3>Question {currentQuestion + 1}</h3>
@@ -119,13 +122,13 @@ class Question extends PureComponent {
           className="btn"
           disabled={!currentQuestion}
         > 
-          <img src={prevBtn} width='40px'/>
+          <img src={prevBtn} alt='/' width='40px'/>
         </button>
         <button 
           onClick={this.nextQuestion}
           className="btn"
         >
-          <img src={nextBtn} width='40px'/>
+          <img src={nextBtn} alt='/' width='40px'/>
         </button>
       </>
     );
@@ -133,3 +136,9 @@ class Question extends PureComponent {
 };
 
 export default Question;
+
+Question.propTypes = {
+  questions: PropTypes.array,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string
+}
