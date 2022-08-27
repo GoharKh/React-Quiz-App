@@ -19,7 +19,7 @@ export default class ErrorBoundary extends Component {
   render() {
     if(this.state.hasError) {
       return (
-        <div> {this.state.error.toString()} </div>
+          <h4> {this.state.error.toString()} </h4>  
       );
     }
     return this.props.children

@@ -1,6 +1,9 @@
+import {createContext} from 'react';
 import UserLog from './components/UserLog';
 
 import img from './images/brain.png';
+
+const ThemeContext = createContext('light')
 
 const App = () => (
   <div className="container">
@@ -9,7 +12,9 @@ const App = () => (
       <h1>Let's Play</h1>
       <div className="underline"></div>
     </div>
-    <UserLog />
+    <ThemeContext.Provider value='dark'>
+      <UserLog />
+    </ThemeContext.Provider>
   </div>
 );
 
