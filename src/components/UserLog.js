@@ -1,6 +1,9 @@
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef, lazy, Suspense } from 'react';
+import Loading from './Loading';
 
-import Quiz from './Quiz'
+// import Quiz from './Quiz'
+
+const Quiz = lazy(() => import('./Quiz'))
 
 class UserLog extends PureComponent {
   constructor(props) {
@@ -48,7 +51,9 @@ class UserLog extends PureComponent {
     const {error} = this.state
     if(this.state.isLogged) {
       return (
-        <Quiz  firstName={this.firstName.current.value} lastName={this.lastName.current.value}/>
+        <Suspense fallback={<Loading />}>
+          <Quiz  firstName={this.firstName.current.value} lastName={this.lastName.current.value}/>
+        </Suspense>
       )
     }
     return(

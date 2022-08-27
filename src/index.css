@@ -168,3 +168,17 @@ form input {
   background:var(--clr-red);
   color: var(--clr-white);
 }
+.loader {
+  border: 16px solid var(--clr-primary-4);
+  border-radius: 50%;
+  border-top: 16px solid var(--clr-primary-2);
+  width: 150px;
+  height: 150px;
+  margin-top: 30px;
+  animation: loader 2s linear infinite;
+}
+
+@keyframes loader {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

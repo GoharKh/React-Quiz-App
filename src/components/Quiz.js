@@ -21,7 +21,7 @@ class Quiz extends PureComponent {
             </div> ) 
           } */}
           <ErrorBoundary>
-          <Question questions={questions} {...this.props}/>
+            <Question questions={questions} {...this.props}/>
           </ErrorBoundary>
       </div>
     );
