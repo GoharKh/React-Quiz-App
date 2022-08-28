@@ -11,21 +11,14 @@ class Quiz extends PureComponent {
     const questionsArr = [questions1, questions2, questions3];
     const index = Math.floor(Math.random() * questionsArr.length);
     const questions = questionsArr[index];
-
     return (
-      <div className="quiz">
-          {/* {questions.length ? (
-            <Question questions={questions} {...this.props}/> ) : (
-            <div className="title">
-              <h1>No Questions</h1>
-            </div> ) 
-          } */}
-          <ErrorBoundary>
-            <Question questions={questions} {...this.props}/>
-          </ErrorBoundary>
+      <div className='quiz'>
+        <ErrorBoundary>
+          <Question questions={questions} {...this.props}/>
+        </ErrorBoundary>
       </div>
-    );
-  };
+    )
+  }
 };
 
 export default Quiz

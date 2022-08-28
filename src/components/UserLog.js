@@ -1,8 +1,6 @@
 import { PureComponent, createRef, lazy, Suspense } from 'react';
 import Loading from './Loading';
 
-// import Quiz from './Quiz'
-
 const Quiz = lazy(() => import('./Quiz'))
 
 class UserLog extends PureComponent {

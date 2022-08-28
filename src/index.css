@@ -57,7 +57,11 @@ p {
   color: var(--clr-red);
   font-weight: 600;
 }
-
+.wrapper {
+  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+}
 .container  {
   width: 80vw;
   max-width: var(--fixed-width);
@@ -85,7 +89,7 @@ form {
   margin: auto;
 }
 .quiz {
-  background: var(--clr-white);
+  /* background: var(--clr-white); */
   padding: 1.5rem 2rem;
   border-radius: var(--radius);
   box-shadow: var(--light-shadow);

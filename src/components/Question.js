@@ -74,12 +74,16 @@ class Question extends PureComponent {
   previousQuestion = () => {
     const {selected, currentQuestion}  = this.state;
 
+    if(selected) {
       this.showResult(selected);
       this.setState({
           currentQuestion: currentQuestion - 1,
           selected: true,
           error: ''
       });
+    } else {
+      this.setState({error: 'Please select an option'})
+    }
   };
 
   render() {
@@ -93,7 +97,7 @@ class Question extends PureComponent {
       throw new Error('There are no questions right now! Please try again later.')
     }
     return (
-      <>
+      <div>
         <h3>Question {currentQuestion + 1}</h3>
         <h2>{questions[currentQuestion].question}</h2>
         <div className="answers">
@@ -130,7 +134,7 @@ class Question extends PureComponent {
         >
           <img src={nextBtn} alt='/' width='40px'/>
         </button>
-      </>
+      </ div>
     );
   };
 };
