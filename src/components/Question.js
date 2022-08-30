@@ -5,6 +5,7 @@ import Final from './Final';
 
 import nextBtn from '../images/right.png' 
 import prevBtn from '../images/left.png'
+import Modal from './popup/Modal';
 
 class Question extends PureComponent {
   constructor(props) {
@@ -16,7 +17,8 @@ class Question extends PureComponent {
       correct: null,
       score: 0,
       isFinished: false,
-      checkedAnswers: []
+      checkedAnswers: [],
+      isOpen: false,
     };
   };
 
@@ -63,7 +65,7 @@ class Question extends PureComponent {
           selected: null
         });
       } else {
-          this.setState({isFinished: true})
+          this.setState({isFinished: true, isOpen: true})
       }
     } else {
       // 
@@ -87,11 +89,21 @@ class Question extends PureComponent {
   };
 
   render() {
-    const {questions} = this.props;
-    const {score, currentQuestion, selected, error, isFinished, checkedAnswers} = this.state;
+    const {questions, firstName, lastName} = this.props;
+    const {score, currentQuestion, selected, error, isFinished, checkedAnswers, isOpen} = this.state;
     
     if(isFinished) {
-        return <Final score={score} {...this.props}/>
+        return (
+          <>
+            <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
+              <div className="results">
+                <h3>Dear, {firstName} {lastName}</h3>
+                <h2>Your Score is {score} / {questions.length}</h2>
+              </div>
+            </Modal>
+            <Final  firstName={firstName} lastName={lastName}/>
+          </>
+        )
     };
     if(!questions) {
       throw new Error('There are no questions right now! Please try again later.')

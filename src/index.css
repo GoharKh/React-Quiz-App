@@ -211,6 +211,61 @@ form input {
   margin-top: 30px;
   animation: loader 2s linear infinite;
 }
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 50px;
+  z-index: 2;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .7);
+  z-index: 2;
+}
+.close-btn {
+	overflow: hidden;
+	position: absolute;
+  left: 89%;
+  bottom: 75%;
+	border: none;
+	padding: 0;
+	width: 2rem; height: 2rem;
+	border-radius: 50%;
+	background: transparent;
+	color: #1da1f2;
+	font: inherit;
+	text-indent: 100%;
+	cursor: pointer;
+}	
+.close-btn:focus {
+		outline: solid 0 transparent;
+		box-shadow: 0 0 0 2px #8ed0f9
+}
+	
+.close-btn:hover {
+		background: rgba(29, 161, 142, .1)
+}
+	
+.close-btn::before, .close-btn::after {
+		position: absolute;
+		top: 15%; left: calc(50% - .0625em);
+		width: .125em; height: 70%;
+		border-radius: .125em;
+		transform: rotate(45deg);
+		background: currentcolor;
+		content: ''
+}
+	
+.close-btn::after { 
+  transform: rotate(-45deg); 
+} 
 
 @keyframes loader {
   0% { transform: rotate(0deg); }
