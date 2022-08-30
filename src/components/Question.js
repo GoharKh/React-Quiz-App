@@ -43,7 +43,19 @@ class Question extends PureComponent {
       checkedAnswers: [...checkedAnswers, i]
     });
   };
-
+  onReset = () => {
+    this.setState({
+      selected: null,
+      error: false,
+      currentQuestion: 0,
+      correct: null,
+      score: 0,
+      isFinished: false,
+      checkedAnswers: [],
+      isOpen: false,
+    });
+    this.props.logOut()
+  }
   nextQuestion = () => {
     const {questions} = this.props;
     const {selected, currentQuestion, correct, checkedAnswers} = this.state;
@@ -101,7 +113,7 @@ class Question extends PureComponent {
                 <h2>Your Score is {score} / {questions.length}</h2>
               </div>
             </Modal>
-            <Final  firstName={firstName} lastName={lastName}/>
+            <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
           </>
         )
     };

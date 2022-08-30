@@ -115,7 +115,6 @@ form {
   color: var(--clr-primary-2);
 }
 .theme-switcher {
-  height: 2rem;
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius);
   transition: var(--transition);
