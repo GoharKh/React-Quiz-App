@@ -13,7 +13,7 @@ class Wrapper extends PureComponent {
         {
           ({background, color}) => (
             <div className='wrapper' style={{background: background, color: color}}>
-              <button onClick={changeTheme}>change</button>
+              <button className={background === '#222222' ? 'theme-switcher dark' : 'theme-switcher light' } onClick={changeTheme}>Change theme mode</button>
               <div className="container">
                 <div className="title">
                   <img src={img} alt='/' width='80px'/>

@@ -114,6 +114,36 @@ form {
 .btn:hover {
   color: var(--clr-primary-2);
 }
+.theme-switcher {
+  height: 2rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  border-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 3vw;
+  margin-left: 80vw;
+  transition: var(--transition);
+}
+.theme-switcher.dark {
+  background-color: var(--clr-green-light);
+  color: black;
+}
+.theme-switcher.dark:hover {
+  background-color: #2EE59D;
+  box-shadow: 0 0 1.5rem rgba(46, 229, 157, 0.4);
+  /* transform: translateY(2px); */
+}
+.theme-switcher.light {
+  background-color: var(--clr-primary-2);
+  color: white;
+}
+.theme-switcher.light:hover {
+  background-color: #2ebae5;
+  box-shadow: 0 0 1.5rem rgba(46, 202, 229, 0.4);
+  /* transform: translateY(2px); */
+}
 form input {
   margin-top: 1rem;
   width: 15rem;
