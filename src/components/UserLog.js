@@ -13,9 +13,11 @@ class UserLog extends PureComponent {
     this.firstName = createRef()
     this.lastName = createRef()
   }
+
   componentDidMount() {
     this.firstName.current.focus()
   }
+  
   onKeyUp = (target, e) => {
     if(e.keyCode === 13) {
       if(target === 'firstName') {

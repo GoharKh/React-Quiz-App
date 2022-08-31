@@ -105,24 +105,76 @@ class Question extends PureComponent {
     const {score, currentQuestion, selected, error, isFinished, checkedAnswers, isOpen} = this.state;
     
     if(isFinished) {
+      if (score===5) {
         return (
           <>
             <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
               <div className="results">
-                <h3>Dear, {firstName} {lastName}</h3>
-                <h2>Your Score is {score} / {questions.length}</h2>
+                <h2>🏆Congratulations!🏆</h2>
+                <h3>🥳Dear, {firstName} {lastName}!🥳</h3>
+                <h2>🤩Your Score is {score} / {questions.length}🤩</h2>
+                <h3>🥇You in a first place🥇</h3>
+                {/* Maxtanqner kgrenq tekster */}
               </div>
             </Modal>
             <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
           </>
-        )
+        )}
+        else if (score===4) {
+          return (
+            <>
+              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
+                <div className="results">
+                  <h2>🏆Congratulations!🏆</h2>
+                  <h3>🙃Dear, {firstName} {lastName}!🙃</h3>
+                  <h2>🤗Your Score is {score} / {questions.length}🤗</h2>
+                  <h3>🥈You in a second place🥈</h3>
+                  {/* Maxtanqner kgrenq tekster */}
+                </div>
+              </Modal>
+              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
+            </>
+          )
+        }
+        else if (score===3) {
+          return (
+            <>
+              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
+                <div className="results">
+                  <h2>🏆Congratulations!🏆</h2>
+                  <h3>🧐Dear, {firstName} {lastName}!🧐</h3>
+                  <h2>🤓Your Score is {score} / {questions.length}🤓</h2>
+                  <h3>🥉You in a third place🥉</h3>
+                  {/* Maxtanqner kgrenq tekster */}
+                </div>
+              </Modal>
+              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
+            </>
+          )
+        }
+        else {
+          return (
+            <>
+              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
+                <div className="results">
+                  <h2>🏆Congratulations!🏆</h2>
+                  <h3>🤨Dear, {firstName} {lastName}!🤨</h3>
+                  <h2>🤔Your Score is {score} / {questions.length}🤔</h2>
+                  <h3>Never give up!</h3>
+                  {/* Maxtanqner kgrenq tekster */}
+                </div>
+              </Modal>
+              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
+            </>
+          )
+        }
     };
     if(!questions) {
       throw new Error('There are no questions right now! Please try again later.')
     }
     return (
       <div>
-        <h3>Question {currentQuestion + 1}</h3>
+        <h3>Question №{currentQuestion + 1}</h3>
         <h2>{questions[currentQuestion].question}</h2>
         <div className="answers">
           {error && <p>{error}</p>}

@@ -9,6 +9,7 @@
   --clr-grey-4: hsl(0, 0%, 78%);
   --clr-white: #fff;
   --clr-red: rgb(230, 84, 84);
+  --clr-yellow: hsl(71, 73%, 53%);
   --clr-green: hsl(125, 44%, 42%);
   --clr-green-light: hsl(125, 71%, 66%);
   --clr-black: #222;
@@ -26,6 +27,10 @@
   padding: 0;
   box-sizing: border-box;
 }
+*:before, *:after {
+  position: absolute;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -39,7 +44,6 @@ h1,
 h2,
 h3 {
   letter-spacing: var(--spacing);
-  text-transform: capitalize;
   line-height: 1.25;
   margin-bottom: 0.75rem;
 }
@@ -56,6 +60,7 @@ p {
   font-size: 1.25rem;
   color: var(--clr-red);
   font-weight: 600;
+  text-shadow: 0 0 1.5rem var(--clr-red);
 }
 .wrapper {
   width: 100vw;
@@ -69,14 +74,12 @@ p {
   display: grid; 
   place-items: center;
   margin: auto;
-  padding: 4rem 0;
 }
 form {
   display: grid; 
   place-items: center;
   margin: auto;
   padding: 2rem 0;
-
 }
 .title {
   text-align: center;
@@ -87,6 +90,18 @@ form {
   width: 5rem;
   background: var(--clr-primary-2);
   margin: auto;
+}
+.container > .title > img, .container > .title > h1, .container > .title > .underline {
+  transition: 0.7s ease-in-out;
+}
+.container:hover > .title > img {
+  transform: scale(1.2, 1.2);
+}
+.container:hover > .title > h1 {
+  text-shadow: 0 0 1rem var(--clr-red);
+}
+.container:hover > .title > .underline {
+  width: 100%;
 }
 .quiz {
   /* background: var(--clr-white); */
@@ -112,7 +127,7 @@ form {
   cursor: pointer;
 }
 .btn:hover {
-  color: var(--clr-primary-2);
+  color: var(--clr-primary-2); /*?*/
 }
 .theme-switcher {
   padding: 0.25rem 0.5rem;
@@ -123,25 +138,26 @@ form {
   font-size: 1rem;
   margin-top: 3vw;
   margin-left: 80vw;
-  transition: var(--transition);
 }
 .theme-switcher.dark {
-  background-color: var(--clr-green-light);
+  background-color: var(--clr-yellow);
   color: black;
+  transition: 0.7s ease-in-out;
 }
 .theme-switcher.dark:hover {
-  background-color: #2EE59D;
-  box-shadow: 0 0 1.5rem rgba(46, 229, 157, 0.4);
-  /* transform: translateY(2px); */
+  background-color: #b4e52e;
+  box-shadow: 0 0 1.5rem rgba(170, 250, 42, 0.795);
+  transform: scale(1.05, 1.05);
 }
 .theme-switcher.light {
   background-color: var(--clr-primary-2);
   color: white;
+  transition: 0.7s ease-in-out;
 }
 .theme-switcher.light:hover {
   background-color: #2ebae5;
   box-shadow: 0 0 1.5rem rgba(46, 202, 229, 0.4);
-  /* transform: translateY(2px); */
+  transform: scale(1.05, 1.05);
 }
 form input {
   margin-top: 1rem;
@@ -155,6 +171,18 @@ form input {
   cursor: pointer;
   font-size: 1.125rem;
   box-shadow: var(--light-shadow);
+  outline-color: var(--clr-primary-1);
+  color: var(--clr-primary-1);
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--clr-primary-1);
+  opacity: 0.7; /* Firefox */
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--clr-primary-1);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--clr-primary-1);
 }
 .option {
   margin-top: 1rem;
@@ -218,6 +246,7 @@ form input {
   background-color: #FFF;
   padding: 50px;
   z-index: 2;
+  border-radius: var(--radius);
 }
 .overlay {
   position: fixed;
@@ -265,7 +294,68 @@ form input {
 .close-btn::after { 
   transform: rotate(-45deg); 
 } 
+.results{
+  text-align: center;
+}
 
+.btn-play-again {
+  background: transparent;
+	color: #fff;
+  border-color: transparent;
+	border-radius: 50px; /*var(--radius)*/
+	padding: 0.8rem 2rem;
+  font-size: 1.5rem; 
+	outline: none;
+	cursor: pointer;
+	position: relative;
+	letter-spacing: 2px;
+  margin-top: 4rem;
+  background-color: var(--clr-primary-2);
+  transition: 0.7s ease-in-out;
+}
+
+.btn-play-again:hover{
+  background-color: #2ebae5;
+  box-shadow: 0 0 1.5rem rgba(46, 202, 229, 0.4);
+}
+
+.button-hand.btn-play-again:before {
+  content: "👇";
+  font-size: 60px;
+  transform: scaleX(-1);
+  right: 0px;
+  top: -68px;
+  animation: up-down 1s infinite;
+}
+.button-hand.btn-play-again .hands:before, .button-hand.btn-play-again .hands:after {
+  content: "👇";
+  font-size: 40px;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
+}
+.button-hand.btn-play-again .hands:before {
+  transform: rotate(-60deg);
+  left: -45px;
+  top: -10px;
+}
+.button-hand.btn-play-again .hands:after {
+  transform: rotate(170deg);
+  right: 30px;
+  top: 50px;
+}
+.button-hand.btn-play-again:hover .hands:before {
+  opacity: 1;
+  left: -35px;
+}
+.button-hand.btn-play-again:hover .hands:after {
+  opacity: 1;
+  top: 40px;
+}
+@keyframes up-down {
+  50% {
+    margin-top: -20px;
+  }
+}
 @keyframes loader {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
