@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types'
 
 import Final from './Final';
@@ -7,24 +7,18 @@ import nextBtn from '../images/right.png'
 import prevBtn from '../images/left.png'
 import Modal from './popup/Modal';
 
-class Question extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: null,
-      error: false,
-      currentQuestion: 0,
-      correct: null,
-      score: 0,
-      isFinished: false,
-      checkedAnswers: [],
-      isOpen: false,
-    };
-  };
+const Question = ({questions, firstName, lastName, logOut}) => {
 
-  showResult = i => {
-    const {selected, correct} = this.state;
+  const [selected, setSelected] = useState(null)
+  const [error, setError] = useState(false)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [correct, setCorrect] = useState(null)
+  const [score, setScore] = useState(0)
+  const [isFinished, setIsFinished] = useState(false)
+  const [checkedAnswers, setCheckedAnswers] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
 
+  const showResult = i => {
     if (selected === i && selected !== correct) {
         return "wrong";
     } else if (i === correct) {
@@ -32,143 +26,74 @@ class Question extends PureComponent {
     }
   };
 
-  setAnswer = i => {
-    const {questions} = this.props;
-    const {currentQuestion, checkedAnswers} = this.state;
-
-    this.setState({
-      selected: i, 
-      correct: questions[currentQuestion].correctAnswer, 
-      error: false,
-      checkedAnswers: [...checkedAnswers, i]
-    });
+  const setAnswer = i => {
+    setSelected(i)
+    setCorrect(questions[currentQuestion].correctAnswer)
+    setError(false)
+    setCheckedAnswers([...checkedAnswers, i])
   };
-  onReset = () => {
-    this.setState({
-      selected: null,
-      error: false,
-      currentQuestion: 0,
-      correct: null,
-      score: 0,
-      isFinished: false,
-      checkedAnswers: [],
-      isOpen: false,
-    });
-    this.props.logOut()
-  }
-  nextQuestion = () => {
-    const {questions} = this.props;
-    const {selected, currentQuestion, correct, checkedAnswers} = this.state;
 
+  const onReset = () => {
+    setSelected(null)
+    setCorrect(null)
+    setError(false)
+    setCheckedAnswers([])
+    setCurrentQuestion(0)
+    setScore(0)
+    setIsFinished(false)
+    setIsOpen(false)
+
+    logOut()
+  }
+  
+  const nextQuestion = () => {
     if (selected === correct) {
-      this.setState(({score}) => ({score: score + 1}))
+      setScore(score => score + 1)
     };
-    
     // if the user already selected an answer, the selected answer will remain the same even when goes back and forward
     if(checkedAnswers[currentQuestion + 1]) {
-      this.setState({
-        currentQuestion: currentQuestion + 1, 
-        selected: checkedAnswers[currentQuestion]
-      })
+      setCurrentQuestion(currentQuestion => currentQuestion + 1)
+      setSelected(checkedAnswers[currentQuestion])
     } else if(selected ||  checkedAnswers[currentQuestion] ) {
-      if(currentQuestion + 1 !== questions.length ) {
-        this.setState({
-          currentQuestion: currentQuestion + 1, 
-          selected: null
-        });
-      } else {
-          this.setState({isFinished: true, isOpen: true})
-      }
+        if(currentQuestion + 1 !== questions.length ) {
+          setCurrentQuestion(currentQuestion => currentQuestion + 1)
+          setSelected(null)
+        } else {
+            setIsFinished(true)
+            setIsOpen(true)
+        }
     } else {
-      // 
-      this.setState({error: 'Please select an option for next question'})
+      setError('Please select an option for next question')
     };
   };
 
-  previousQuestion = () => {
-    const {selected, currentQuestion}  = this.state;
-
+  const previousQuestion = () => {
     if(selected) {
       this.showResult(selected);
-      this.setState({
-          currentQuestion: currentQuestion - 1,
-          selected: true,
-          error: ''
-      });
+      setCurrentQuestion(currentQuestion => currentQuestion - 1)
+      setSelected(true)
+      setError('')
     } else {
-      this.setState({error: 'Please select an option'})
+        setError('Please select an option')
     }
   };
-
-  render() {
-    const {questions, firstName, lastName} = this.props;
-    const {score, currentQuestion, selected, error, isFinished, checkedAnswers, isOpen} = this.state;
     
     if(isFinished) {
-      if (score===5) {
         return (
           <>
-            <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
+          
+            <Modal open={isOpen} onClose={() => setIsOpen(false)}>
               <div className="results">
                 <h2>🏆Congratulations!🏆</h2>
                 <h3>🥳Dear, {firstName} {lastName}!🥳</h3>
                 <h2>🤩Your Score is {score} / {questions.length}🤩</h2>
-                <h3>🥇You in a first place🥇</h3>
+                {score > 3 ? <h3>🥇Great!!!🥇</h3> : <h3>Never give up!</h3>}
                 {/* Maxtanqner kgrenq tekster */}
               </div>
             </Modal>
-            <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
+            <Final  firstName={firstName} lastName={lastName} onReset={onReset}/>
           </>
         )}
-        else if (score===4) {
-          return (
-            <>
-              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
-                <div className="results">
-                  <h2>🏆Congratulations!🏆</h2>
-                  <h3>🙃Dear, {firstName} {lastName}!🙃</h3>
-                  <h2>🤗Your Score is {score} / {questions.length}🤗</h2>
-                  <h3>🥈You in a second place🥈</h3>
-                  {/* Maxtanqner kgrenq tekster */}
-                </div>
-              </Modal>
-              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
-            </>
-          )
-        }
-        else if (score===3) {
-          return (
-            <>
-              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
-                <div className="results">
-                  <h2>🏆Congratulations!🏆</h2>
-                  <h3>🧐Dear, {firstName} {lastName}!🧐</h3>
-                  <h2>🤓Your Score is {score} / {questions.length}🤓</h2>
-                  <h3>🥉You in a third place🥉</h3>
-                  {/* Maxtanqner kgrenq tekster */}
-                </div>
-              </Modal>
-              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
-            </>
-          )
-        }
-        else {
-          return (
-            <>
-              <Modal open={isOpen} onClose={() => this.setState({isOpen: false})}>
-                <div className="results">
-                  <h2>🏆Congratulations!🏆</h2>
-                  <h3>🤨Dear, {firstName} {lastName}!🤨</h3>
-                  <h2>🤔Your Score is {score} / {questions.length}🤔</h2>
-                  <h3>Never give up!</h3>
-                  {/* Maxtanqner kgrenq tekster */}
-                </div>
-              </Modal>
-              <Final  firstName={firstName} lastName={lastName} onReset={this.onReset}/>
-            </>
-          )
-        }
-    };
     if(!questions) {
       throw new Error('There are no questions right now! Please try again later.')
     }
@@ -181,16 +106,16 @@ class Question extends PureComponent {
           {questions[currentQuestion].allAnswers.map((i, index) => (
             checkedAnswers.includes(i) 
             ? <button
-                className={`option selected ${selected && this.showResult(i)}`} 
+                className={`option selected ${selected && showResult(i)}`} 
                 key={index}
                 disabled={selected}
               > 
                 {i} 
               </button> 
             : <button 
-                className={`option ${selected && this.showResult(i)}`}
+                className={`option ${selected && showResult(i)}`}
                 key={index}
-                onClick={() => this.setAnswer(i)}
+                onClick={() => setAnswer(i)}
                 disabled={selected}
               > 
                 {i} 
@@ -198,21 +123,20 @@ class Question extends PureComponent {
           }
         </div>
         <button 
-          onClick={this.previousQuestion}
+          onClick={previousQuestion}
           className="btn"
           disabled={!currentQuestion}
         > 
           <img src={prevBtn} alt='/' width='40px'/>
         </button>
         <button 
-          onClick={this.nextQuestion}
+          onClick={nextQuestion}
           className="btn"
         >
           <img src={nextBtn} alt='/' width='40px'/>
         </button>
       </ div>
     );
-  };
 };
 
 export default Question;

@@ -1,27 +1,24 @@
-import { PureComponent } from 'react';
+import { useState } from 'react';
 
 import {ThemeContext, themes} from './components/theme/theme-context';
 import Wrapper from './Wrapper';
 
-class App extends PureComponent {
-  state = {
-    theme: themes.dark,
-  }
-  changeTheme = () => {
-    this.setState(state => ({
-      theme:
-        state.theme === themes.dark
+const App = () => {
+  const [theme, setTheme] = useState(themes.dark)
+  
+  const changeTheme = () => {
+    setTheme(
+          theme === themes.dark
           ? themes.light
           : themes.dark,
-    }));
-  }
-  render() {
-    return (
-      <ThemeContext.Provider value={this.state.theme}>
-        <Wrapper changeTheme={this.changeTheme} />
-      </ThemeContext.Provider>
     );
   }
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      <Wrapper changeTheme={changeTheme} />
+    </ThemeContext.Provider>
+  );
 }
 
 export default App;
